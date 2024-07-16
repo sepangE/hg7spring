@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-	
+	// session
 	@Autowired
 	HttpSession session;
 	
