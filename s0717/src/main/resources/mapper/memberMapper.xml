@@ -1,0 +1,23 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.MemberMapper">
+	<select id="selectLogin" resultType="com.java.dto.Member">
+		select * from member where id=#{id} and pw=#{pw}
+	</select>
+	<select id="selectAll" resultType="com.java.dto.Member">
+		select * from member 
+	</select>
+	<select id="selectOne" resultType="com.java.dto.Member">
+		select * from member where id = #{id}
+	</select>
+	<insert id="insertOne">
+		insert into member values(#{id},#{pw},#{name},#{phone},#{gender},#{hobbys},sysdate)
+	</insert>
+	<update id="modiMem">
+		update member set pw=#{pw}, name=#{name}, phone=#{phone}, gender=#{gender}, hobbys=#{hobbys} where id=#{id}
+	</update>
+	<delete id="deleteM">
+		delete member where id=#{id}
+	</delete>
+</mapper>
