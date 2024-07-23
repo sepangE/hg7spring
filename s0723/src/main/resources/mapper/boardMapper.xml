@@ -1,0 +1,89 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.BMapper">
+	
+	<select id="selectAll" resultType="com.java.dto.Board">
+		select * from (select rownum rnum, a.* 
+		from (select * from board
+		<if test="category == 'title'">
+			where btitle like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<if test="category == 'content'">
+			where bcontent like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<if test="category == 'all'">
+			where btitle like '%'|| #{sWord} ||'%' or bcontent like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<![CDATA[
+			order by bgroup desc, bstep asc)a)
+			where rnum >=#{startRow} and rnum<=#{endRow}
+		]]>
+		
+	</select>
+	
+	<select id="selectOne" resultType="com.java.dto.Board">
+		select * from board where bno=#{bno}
+	</select>
+	
+	<select id="selectPrev" resultType="com.java.dto.Board">
+		select * from board where bno =
+		(select prevDto from
+		(select bno,id,lag(bno,1,-1)over(order by bgroup desc, bstep asc)as prevDto
+		from board
+		<if test="category == 'title'">
+			where btitle like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<if test="category == 'content'">
+			where bcontent like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<if test="category == 'all'">
+			where btitle like '%'|| #{sWord} ||'%' or bcontent like '%'|| #{sWord} ||'%'
+		</if>
+		 order by bgroup desc, bstep asc)
+		where bno = #{bno})
+	</select>
+
+	<select id="selectnext" resultType="com.java.dto.Board">
+		select * from board where bno =
+		(select nextDto from
+		(select bno,id,lead(bno,1,-1)over(order by bgroup desc, bstep asc)as nextDto
+		from board 
+		<if test="category == 'title'">
+			where btitle like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<if test="category == 'content'">
+			where bcontent like '%'|| #{sWord} ||'%'
+		</if>
+		
+		<if test="category == 'all'">
+			where btitle like '%'|| #{sWord} ||'%' or bcontent like '%'|| #{sWord} ||'%'
+		</if>
+		order by bgroup desc, bstep asc)
+		where bno = #{bno})
+	</select>
+	
+	<select id="selectListCount" resultType="int">
+		select count(*) from board
+		
+		<if test="category == 'title'">
+			where btitle like '%'|| #{sWord} ||'%'
+		</if> 
+		
+		<if test="category == 'content'">
+			where bcontent like '%'|| #{sWord} ||'%'
+		</if> 
+		
+		<if test="category == 'all'">
+			where btitle like '%'|| #{sWord} ||'%' or bcontent like '%'|| #{sWord} ||'%'
+		</if> 
+	</select>
+	
+
+</mapper>
