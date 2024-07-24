@@ -29,8 +29,6 @@
 						alert("연결실패");
 					} 
 				})// ajax
-				
-				
 			})//loadBtn
 			
 			$("#ajaxBtn").click(function(){
@@ -58,7 +56,30 @@
 					} 
 				})// ajax
 			})//ajaxBtn
-			
+			$("#dbBtn").click(function(){
+			//	alert("데이터 베이스 연결");
+				$.ajax({
+					url : "/member/selectAll",
+					method : "post",
+					success: function(data){
+						alert("성공");
+						console.log(data[0]);
+						str = '';
+						for(let i = 0; i< data.length; i++){
+							str += '<tr>';
+							str += '<td>'+(i+1)+'</td>';
+							str += '<td>'+data[i].name+'</td>';
+							str += '<td>'+data[i].phone+'</td>';
+							str += '<td>'+data[i].gender+'</td>';
+							str += '</tr>';
+						}
+						$("#btable").html(str);
+					},
+					error : function(data){
+						alert("실패");
+					}
+				})//ajax
+			})// dbBtn
 			
 		})// jquery
 		
@@ -67,21 +88,24 @@
 	</head>
 	<body>
 		<h1>AJAX</h1>
+		<h1><a href="/">메인으로 돌아가기</a></h1>
+		<h1><a href="/member/login">login</a></h1>
 		<p id="text"></p>
 		<button id="loadBtn">load</button>
 		<button id="ajaxBtn">ajax</button>
+		<button id="dbBtn">DB</button>
 		<table>
 			<tr>
 				<th>번호</th>
 				<th>이름</th>
-				<th>이메일</th>
+				<th>핸드폰</th>
 				<th>성별</th>
 			</tr>
 			<tbody id="btable">
 			<tr>
 				<td>1</td>
 				<td>홍길동</td>
-				<td>hong@aa.com</td>
+				<td>010-9878-7878</td>
 				<td>남성</td>
 			</tr>
 			</tbody>

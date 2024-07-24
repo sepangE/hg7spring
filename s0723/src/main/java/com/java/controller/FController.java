@@ -16,6 +16,11 @@ public class FController {
 		return "/ajax01";
 	} // ajax01
 	
+	@RequestMapping("/ajax02")
+	public String ajax02() {
+		return "/ajax02";
+	} // ajax02
+	
 	
 	
 }
