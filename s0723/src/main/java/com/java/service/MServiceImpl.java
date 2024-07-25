@@ -35,5 +35,17 @@ public class MServiceImpl implements MService {
 		}
 		return result;
 	}
+	@Override
+	public Member insertOne(Member m) {
+		mMapper.insertOne(m);
+		Member member = mMapper.selectOne(m);
+		System.out.println("잘 가져왔니"+member.getHobbys());	
+		return member;
+	}
+	@Override
+	public void delOneMem(String id) {
+		mMapper.delOneMem(id);
+		
+	}
 
 }

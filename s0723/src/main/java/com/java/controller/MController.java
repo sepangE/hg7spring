@@ -62,7 +62,27 @@ public class MController {
 		return "/main";
 	}
 	
+	@RequestMapping("/member/mlist")
+	public String mlist() {
+		return "/member/mlist";
+	}
 	
+	
+	@PostMapping("/member/mJoin")
+	@ResponseBody
+	public Member mJoinBtn(Member m) {
+	//	System.out.println(m.getHobbys());
+		Member member = mservice.insertOne(m);
+		return member;
+	}
+	
+	@PostMapping("/member/delOneMem")
+	@ResponseBody
+	public String delOneMem(String id) {
+		//	System.out.println(m.getHobbys());
+		mservice.delOneMem(id);
+		return "성공!";
+	}
 	
 	
 	

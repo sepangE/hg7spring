@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.dto.Board;
+import com.java.dto.Comment;
 import com.java.mapper.BMapper;
 
 @Service
@@ -76,4 +77,55 @@ public class BServiceImpl implements BService {
 		return map;
 	}
 
+	//=============댓글=======================
+	@Override
+	public Comment commentInsert(Comment c) {
+		System.out.println("before");
+		System.out.println("bservice cno : "+c.getCno());
+		System.out.println("bservice id : "+c.getId());
+		System.out.println("bservice cdate : "+c.getCdate());
+		bmapper.commentInsert(c);
+		System.out.println("after");
+		System.out.println("bservice cno : "+c.getCno());
+		System.out.println("bservice id : "+c.getId());
+		System.out.println("bservice cdate : "+c.getCdate());
+		
+		// 하단 댓글 1개 가져오기
+		Comment cdto = bmapper.selectComOne(c);
+		return cdto;
+	}
+
+	@Override
+	public ArrayList<Comment> selectComAll(int bno) {
+		ArrayList<Comment> list = bmapper.selectComAll(bno);
+		return list;
+	}
+
+	@Override
+	public void deletOneCom(int cno) {
+		bmapper.deletOneCom(cno);
+		
+	}
+
+	@Override
+	public Comment modiOneCom(Comment c) {
+		System.out.println("before");
+		System.out.println("bservice cno : "+c.getCno());
+		System.out.println("bservice id : "+c.getId());
+		System.out.println("bservice cdate : "+c.getCdate());
+		bmapper.modiOneCom(c);
+		System.out.println("after");
+		System.out.println("bservice cno : "+c.getCno());
+		System.out.println("bservice id : "+c.getId());
+		System.out.println("bservice cdate : "+c.getCdate());
+		Comment comm = bmapper.selectComOne(c);
+		return comm;
+	}
+
+	
+	
+	
+	
+	
+	
 }

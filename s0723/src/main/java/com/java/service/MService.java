@@ -10,4 +10,8 @@ public interface MService {
 
 	int login(Member m);
 
+	Member insertOne(Member m);
+
+	void delOneMem(String id);
+
 }

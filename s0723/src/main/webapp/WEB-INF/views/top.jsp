@@ -24,7 +24,7 @@
 					<li>${sessionName}님</li>
 					<li><a href="/member/logout">logout</a></li>
 				</c:if>
-					<li><a href="#">MY PAGE</a></li>
+					<li><a href="/member/mlist">MY PAGE</a></li>
 					<li><a href="#">CART</a></li>
 				</ul>
 

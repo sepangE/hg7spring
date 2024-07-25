@@ -85,5 +85,32 @@
 		</if> 
 	</select>
 	
-
+	
+	
+	<select id="selectComAll" resultType="com.java.dto.Comment">
+		select * from commentBoard where bno = #{bno}
+		order by cno desc
+	</select>
+	
+	<insert id="commentInsert">
+		<selectKey resultType="int" keyProperty="cno" order="BEFORE">
+			select comment_seq.nextval from dual
+		</selectKey>
+			insert into commentBoard values 
+			(#{cno}, #{bno}, #{id}, #{cpw}, #{ccontent}, sysdate)
+	</insert>
+	
+	<select id="selectComOne" resultType="com.java.dto.Comment">
+		select * from commentBoard where cno = #{cno}
+	</select>
+	
+	<delete id="deletOneCom">
+		delete from commentboard where cno = #{cno}
+	</delete>
+	
+	<update id="modiOneCom">
+		update commentboard set cpw = #{cpw}, ccontent=#{ccontent} where cno = #{cno}
+	</update>
+	
+	
 </mapper>

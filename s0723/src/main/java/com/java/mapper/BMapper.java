@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.java.dto.Board;
+import com.java.dto.Comment;
 
 @Mapper
 public interface BMapper {
@@ -18,5 +19,10 @@ public interface BMapper {
 	Board selectnext(int bno, String category, String sWord);
 
 	int selectListCount(String category, String sWord);
+	void commentInsert(Comment c);
+	Comment selectComOne(Comment c);
+	ArrayList<Comment> selectComAll(int bno);
+	void deletOneCom(int cno);
+	void modiOneCom(Comment c);
 
 }
