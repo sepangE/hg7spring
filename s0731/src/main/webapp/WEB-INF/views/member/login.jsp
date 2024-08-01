@@ -231,9 +231,15 @@ $(document).ready(function() {
 						</div>
 					</div>
 
-
-
-					<h3>비회원 주문 조회</h3>
+					<h3>카카오 로그인</h3>
+					<div class="informbox">
+						<div class="inform">
+							<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a9bc0a2eeb1937f6e9ec22ef39ceb2b5&redirect_uri=http://localhost:8000/kakao/oauth">
+								<img src="/images/kakao_login_large_wide.png" style="width:200px;">
+							</a>
+						</div>
+					</div>
+					<!-- <h3>비회원 주문 조회</h3>
 					<div class="informbox">
 						<div class="inform">
 							<ul>
@@ -247,7 +253,7 @@ $(document).ready(function() {
 								<a href="#" class="nbtn">회원가입</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 			</div>

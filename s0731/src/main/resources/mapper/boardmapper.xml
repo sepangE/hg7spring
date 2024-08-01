@@ -1,0 +1,22 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.BMapper">
+	
+	<select id="selectNotice" resultType="com.java.dto.Board">
+		select * from board where btop=1 order by bno desc
+	</select>
+	
+	<select id="selectAll" resultType="com.java.dto.Board">
+		select * from board order by bno desc
+	</select>
+	
+	<select id="selectEvent" resultType="com.java.dto.Board">
+		select * from board where btop=2 order by bno desc
+	</select>
+	
+	<insert id="insertOne">
+		insert into board values(board_seq.nextval,#{id},#{btitle},#{bcontent},sysdate,0,board_seq.currval,0,0,#{bfile},#{btop})
+	</insert>
+	
+</mapper>

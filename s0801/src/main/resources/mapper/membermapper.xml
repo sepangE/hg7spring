@@ -1,0 +1,14 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.mapper.MMapper">
+	
+	<select id="selectLogin" resultType="com.java.dto.Member">
+		select * from mem where id=#{id} and pw=#{pw}
+	</select>
+	
+	<select id="selectId" resultType="string">
+		select id from mem where name=#{name} and email=#{email}
+	</select>
+	
+</mapper>
