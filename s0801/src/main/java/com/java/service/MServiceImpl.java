@@ -1,7 +1,8 @@
 package com.java.service;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.java.dto.Member;
@@ -27,6 +28,58 @@ public  class MServiceImpl implements MService {
 		System.out.println(name);
 		System.out.println(email);
 		return uid;
+	}
+
+
+	@Override
+	public String idck(String id) {
+		String idCk = mMapper.idck(id);
+		return idCk;
+	}
+
+
+	@Override
+	public void insertJoin(Member mem) {
+		System.out.println("insertJoin");
+		String phone = mem.getPhone1() + mem.getPhone2() + mem.getPhone3();
+		String email = mem.getMailId() +"@"+ mem.getMailTail();
+		String addr = mem.getZip() + mem.getAddr1() + mem.getAddr2();
+		String bday = mem.getYear() +"-"+ mem.getMonth() +"-"+ mem.getDay()+" 00:00:00";
+		System.out.println(bday);
+		Timestamp bdate = Timestamp.valueOf(bday);
+		System.out.println(bdate);
+		mem.setPhone(phone);
+		mem.setEmail(email);
+		mem.setAddr(addr);
+		mem.setBdate(bdate);
+		
+		mMapper.insertJoin(mem);
+	}
+
+
+	@Override
+	public Member selectOne(String id) {
+		Member mem = mMapper.selectOne(id);
+		return mem;
+	}
+
+
+	@Override
+	public void modiMem(Member mem) {
+		String phone = mem.getPhone1() + mem.getPhone2() + mem.getPhone3();
+		String email = mem.getMailId() +"@"+ mem.getMailTail();
+		String addr = mem.getZip() + mem.getAddr1() + mem.getAddr2();
+		String bday = mem.getYear() +"-"+ mem.getMonth() +"-"+ mem.getDay()+" 00:00:00";
+		System.out.println(bday);
+		Timestamp bdate = Timestamp.valueOf(bday);
+		System.out.println(bdate);
+		System.out.println(mem.getPw());
+		System.out.println(mem.getId());
+		mem.setPhone(phone);
+		mem.setEmail(email);
+		mem.setAddr(addr);
+		mem.setBdate(bdate);
+		mMapper.modiMem(mem);
 	}
 
 	

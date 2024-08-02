@@ -12,7 +12,7 @@
 				<ul>
 					<li><a href="#">EVENT</a></li>
 					<li><a href="#">CUSTOMER</a></li>
-					<li><a href="#">COMMUNITY</a></li>
+					<li><a href="/board/notice">COMMUNITY</a></li>
 				</ul>
 			</div>
 			<div id="snb">
@@ -26,7 +26,7 @@
 				<c:if test="${sessionId != null}">	
 					<li>${sessionName }님</li>
 					<li><a href="/member/logout">로그아웃</a></li>
-					<li><a href="#">MY PAGE</a></li>
+					<li><a href="/member/change_info?id=${sessionId}">MY PAGE</a></li>
 					<li><a href="#">CART</a></li>
 				</c:if>
 				</ul>

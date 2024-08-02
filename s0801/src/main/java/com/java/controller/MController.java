@@ -43,9 +43,35 @@ public class MController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/change_info")
+	public String change_info(String id,Model model) {
+		//System.out.println(id);
+		Member mem = mservice.selectOne(id);
+		model.addAttribute("member", mem);
+		return "/mypage/change_info";
+	}
+	
+	@PostMapping("/modiMem")
+	public String modiMem(Member mem) {
+		mservice.modiMem(mem);
+		return "redirect:/";
+	}
+	
+	
 	@GetMapping("/step02")
 	public String step02() {
 		return "/member/step02";
+	}
+	
+	@GetMapping("/step03")
+	public String step03() {
+		return "/member/step03";
+	}
+	
+	@PostMapping("/join")
+	public String join(Member mem) {
+		mservice.insertJoin(mem);
+		return "redirect:/member/login";
 	}
 	
 	@GetMapping("/idsearch")
@@ -71,6 +97,19 @@ public class MController {
 		return uid;
 	}
 	
+	@PostMapping("/idck")
+	@ResponseBody
+	public String idck(String id,Model model) {
+		String idCk = mservice.idck(id);
+		
+		if(idCk != null) {
+			model.addAttribute("result", 0);
+			return "0";
+		} else {
+			model.addAttribute("result", 1);
+			return "1";
+		}
+	}
 	
 	
 	

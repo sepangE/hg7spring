@@ -11,4 +11,20 @@
 		select id from mem where name=#{name} and email=#{email}
 	</select>
 	
+	<select id="idck" resultType="String">
+		select id from mem where id=#{id}
+	</select>
+	
+	<insert id="insertJoin">
+		insert into mem values(mem_seq.nextval,#{name},#{id},#{pw},#{email},#{addr},#{phone},#{gender},#{bdate})
+	</insert>
+	
+	<select id="selectOne" resultType="com.java.dto.Member">
+		select * from mem where id=#{id}
+	</select>
+	
+	<update id="modiMem">
+		update mem set pw=#{pw}, email=#{email}, addr=#{addr}, phone=#{phone}, bdate=#{bdate} where id=#{id}
+	</update>
+	
 </mapper>

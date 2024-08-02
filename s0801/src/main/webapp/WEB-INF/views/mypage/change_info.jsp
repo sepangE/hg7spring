@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,8 @@
 <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="../js/idangerous.swiper-2.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.anchor.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--[if lt IE 9]>
 <script type="text/javascript" src="../js/html5.js"></script>
 <script type="text/javascript" src="../js/respond.min.js"></script>
@@ -86,101 +90,7 @@ $(document).ready(function() {
 <div id="allwrap">
 <div id="wrap">
 
-	<div id="header">
-		
-		<div id="snbBox">
-			<h1><img src="../images/txt/logo.gif" alt="JARDIN SHOP" /></h1>
-			<div id="quickmenu">
-				<div id="mnaviOpen"><img src="../images/btn/btn_mnavi.gif" width="33" height="31" alt="메뉴열기" /></div>
-				<div id="mnaviClose"><img src="../images/btn/btn_mnavi_close.gif" width="44" height="43" alt="메뉴닫기" /></div>
-				<ul>
-					<li><a href="#">EVENT</a></li>
-					<li><a href="#">CUSTOMER</a></li>
-					<li><a href="#">COMMUNITY</a></li>
-				</ul>
-			</div>
-			<div id="snb">
-				<ul>
-					<li><a href="#">LOGIN</a></li>
-					<li><a href="#">JOIN</a></li>
-					<li><a href="#">MY PAGE</a></li>
-					<li><a href="#">CART</a></li>
-				</ul>
-
-				<div id="search">
-					<input type="text" class="searchType" />
-					<input type="image" src="../images/btn/btn_main_search.gif" width="23" height="20" alt="검색하기" />
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- GNB -->
-	<div id="gnb">
-		
-		<div id="top">
-			<ul>
-				<li class="brand t1"><a href="#" id="topNavi1">JARDIN’s BRAND</a>
-					<ul id="topSubm1">
-						<li><a href="#">클래스</a></li>
-						<li><a href="#">홈스타일 카페모리</a></li>
-						<li><a href="#">드립커피백</a></li>
-						<li><a href="#">카페리얼 커피</a></li>
-						<li><a href="#">오리지널커피백</a></li>
-						<li><a href="#">카페리얼 음료</a></li>
-						<li><a href="#">마일드커피백</a></li>
-						<li><a href="#">워터커피</a></li>
-						<li><a href="#">카페포드</a></li>
-						<li><a href="#">모히또파티</a></li>
-						<li><a href="#">테이크아웃 카페모리</a></li>
-						<li><a href="#">포타제</a></li>
-					</ul>
-				</li>
-				<li class="t2"><a href="#" id="topNavi2">원두</a>
-					<ul id="topSubm2">
-						<li><a href="#">클래스</a></li>
-						<li><a href="#">로스터리샵</a></li>
-						<li><a href="#">커피휘엘</a></li>
-						<li><a href="#">산지별 생두</a></li>
-					</ul>
-				</li>
-				<li class="t1"><a href="#" id="topNavi3">원두커피백</a>
-					<ul id="topSubm3">
-						<li><a href="#">드립커피 로스트</a></li>
-						<li><a href="#">오리지널커피백</a></li>
-						<li><a href="#">마일드커피백</a></li>
-					</ul>
-				</li>
-				<li class="t2"><a href="#" id="topNavi4">인스턴트</a>
-					<ul id="topSubm4">
-						<li><a href="#">까페모리</a></li>
-						<li><a href="#">홈스타일카페모리</a></li>
-						<li><a href="#">포타제</a></li>
-					</ul>
-				</li>
-				<li class="t1"><a href="#" id="topNavi5">음료</a>
-					<ul id="topSubm5">
-						<li><a href="#">까페리얼</a></li>
-						<li><a href="#">워터커피</a></li>
-						<li><a href="#">모히또</a></li>
-					</ul>
-				</li>
-				<li class="t2"><a href="#" id="topNavi6">커피용품</a>
-					<ul id="topSubm6">
-						<li><a href="#">종이컵</a></li>
-						<li><a href="#">커피필터</a></li>
-						<li><a href="#">머신 등</a></li>
-					</ul>
-				</li>
-				<li class="t1"><a href="#" id="topNavi7">선물세트</a></li>
-				<li class="t2"><a href="#" id="topNavi8">대량구매</a></li>
-			</ul>
-		</div>
-
-		<script type="text/javascript">initTopMenu();</script>
-	</div>
-	<!-- //GNB -->
+	<%@ include file="../top.jsp" %>
 
 	<!-- container -->
 	<div id="container">
@@ -231,7 +141,35 @@ $(document).ready(function() {
 						</ul>
 					</div>
 
+	<script>
+	function mTval(){
+		console.log($("#emailList").val());
+		if($("#emailList").val()=="#"){
+			$("#mailTail").val("");
+			$("#mailTail").attr("disabled",false);
+		} else {
+			$("#mailTail").val($("#emailList").val());
+			$("#mailTail").attr("disabled",true);
+		}
+	}//mTval
+	function zipBtn(){
+		 new daum.Postcode({
+		        oncomplete: function(data) {
+		          $("#zip").val(data.zonecode);
+		          $("#addr1").val(data.address);
+		        }
+		    }).open();
+	} // zipBtn
+	
+	function modiBtn(){
+		if(confirm("수정하시겠습니까?")){
+			mFrm.submit();
+			alert("수정되었습니다.");
+		}
+	}
+	</script>
 
+				<form action="/member/modiMem" method="post" name="mFrm">
 					<div class="memberbd">
 						<table summary="이름, 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일수신여부, 주소, 휴대폰, 유선전화, 생년월일 순으로 회원가입 정보를 수정할수 있습니다." class="memberWrite" border="1" cellspacing="0">
 							<caption>회원가입 수정</caption>
@@ -242,25 +180,27 @@ $(document).ready(function() {
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름 *</span></th>
-									<td>김슬기</td>
+									<td>${member.name}</td>
+									<input type="hidden" id="name" name="name" value="${member.name}">
 								</tr>
 								<tr>
 									<th scope="row"><span>아이디 *</span></th>
-									<td>sleifhglsle123</td>
+									<td>${member.id}</td>
+									<input type="hidden" id="id" name="id" value="${member.id}">
 								</tr>
 								<tr>
 									<th scope="row"><span>비밀번호 변경 *</span></th>
-									<td><a href="password_change.html" class="nbtnMini iw86">비밀번호 변경</a></td>
+									<td><input type="text" id="pw" name="pw" value="${member.pw}"></td>
 								</tr>
 								<tr>
 									<th scope="row"><span>이메일</span></th>
 									<td>
 										<ul class="pta">
-											<li><input type="text" class="w134" /></li>
+											<li><input type="text" id="mailId" name="mailId" class="w134" /></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" /></li>
+											<li class="r10"><input type="text" id="mailTail" name="mailTail" class="w134" /></li>
 											<li>
-												<select id="emailList">
+												<select id="emailList" onchange="mTval()">
 													<option value="#" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
@@ -302,10 +242,11 @@ $(document).ready(function() {
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" />&nbsp;
+												<input type="text" id="zip" name="zip" class="w134" />&nbsp;
 											</li>
-											<li><a href="../member/zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType" /></li>
+											<li><a onclick="zipBtn()" class="addressBtn"><span>우편번호 찾기</span></a></li>
+											<li class="pt5"><input type="text" id="addr1" name="addr1" class="addressType" /></li>
+											<li class="pt5"><input type="text" id="addr2" name="addr2" class="addressType" value="상세주소 입력" /></li>
 											<li>
 												<span class="mvalign">※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.</span>
 											</li>
@@ -317,7 +258,7 @@ $(document).ready(function() {
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
+												<select id="phone1" name="phone1">
 													<option value="010" selected="selected">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
@@ -327,8 +268,8 @@ $(document).ready(function() {
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" id="phone2" name="phone2" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" id="phone3" name="phone3" class="w74" maxlength="4" /></li>
 											<li class="cb pt5"><span class="mvalign">※ SMS 서비스를 받아보시겠습니까?</span></li>
 											<li class="pt5">
 												<ul class="baseQues">
@@ -379,12 +320,12 @@ $(document).ready(function() {
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
+												<select name="year">
 													<option value='' selected="selected">선택하세요</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1940; i<=2014; i++){
-															document.write("<option value=''>" + i + "년"+ "</option>");	
+															document.write("<option value='"+i+"'>" + i + "년"+ "</option>");	
 														};
 													//]]>
 													</script>
@@ -392,15 +333,15 @@ $(document).ready(function() {
 											</li>
 											<li>&nbsp;<span class="valign">년</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
-												<select>
+												<select name="month">
 													<option value='' selected="selected">선택하세요</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=12; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "월"+"</option>");
+																document.write("<option value='"+i+"'>0" + i + "월"+"</option>");
 															}else{
-																document.write("<option value=''>" + i + "월"+ "</option>");
+																document.write("<option value='"+i+"'>" + i + "월"+ "</option>");
 															};
 														};
 													//]]>
@@ -409,15 +350,15 @@ $(document).ready(function() {
 											</li>
 											<li>&nbsp;<span class="valign">월</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
-												<select>
+												<select name="day">
 													<option value='' selected="selected">선택하세요</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=31; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "일"+"</option>");
+																document.write("<option value='"+i+"'>0" + i + "일"+"</option>");
 															}else{
-																document.write("<option value=''>" + i + "일"+ "</option>");
+																document.write("<option value='"+i+"'>" + i + "일"+ "</option>");
 															};
 														};
 													//]]>
@@ -450,12 +391,13 @@ $(document).ready(function() {
 					<div class="btnArea">
 						<div class="bCenter">
 							<ul>
-								<li><a href="#" class="nbtnbig">취소하기</a></li>
-								<li><a href="#" class="sbtnMini">수정하기</a></li>
+								<li><a href="/" class="nbtnbig">취소하기</a></li>
+								<li><a onclick="modiBtn()" class="sbtnMini">수정하기</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //Btn Area -->
+				</form>
 
 
 <script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>
@@ -500,36 +442,7 @@ $(function(){
 
 
 
-	<div id="footerWrap">
-		<div id="footer">
-			<div id="fnb">
-				<ul>
-					<li class="left"><a href="#">개인정보취급방침</a></li>
-					<li><a href="#">이용약관</a></li>
-					<li class="left"><a href="#">이메일무단수집거부</a></li>
-					<li><a href="#">고객센터</a></li>
-					<li class="left brand"><a href="#">쟈뎅 브랜드 사이트</a></li>
-				</ul>
-			</div>
-			
-			<div id="finfo">
-				<div id="flogo"><img src="../images/txt/flogo.gif" alt="JARDIN THE COFFEE CREATOR, SINCE 1984" /></div>
-				<address>
-					<ul>
-						<li>㈜쟈뎅</li>
-						<li>대표자 윤영노</li>
-						<li class="tnone">주소 서울시 강남구 논현동 4-21번지 영 빌딩</li>
-						<li class="webnone">소비자상담실 02)546-3881</li>
-						<li>사업자등록번호 211-81-24727</li>
-						<li class="tnone">통신판매신고 제 강남 – 1160호</li>
-						<li class="copy">COPYRIGHT © 2014 JARDIN <span>ALL RIGHTS RESERVED.</span></li>
-					</ul>
-				</address>
-
-				<div id="inicis"><img src="../images/ico/ico_inicis.png" alt="이니시스 결제시스템" /></div>
-			</div>
-		</div>
-	</div>
+	<%@ include file="../foot.jsp" %>
 
 
 

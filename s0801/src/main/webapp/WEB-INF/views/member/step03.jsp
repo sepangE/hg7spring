@@ -20,6 +20,8 @@
 <script type="text/javascript" src="../js/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="../js/idangerous.swiper-2.1.min.js"></script>
 <script type="text/javascript" src="../js/jquery.anchor.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!--[if lt IE 9]>
 <script type="text/javascript" src="../js/html5.js"></script>
 <script type="text/javascript" src="../js/respond.min.js"></script>
@@ -152,7 +154,89 @@ $(document).ready(function() {
 						</ul>
 					</div>
 
+	<script>
+	var result;
+	function joinBtn(){
+		let nmChk = /^[가-힣]+$/;
+		let idChk = /^[a-zA-z]{1}[a-zA-Z0-9_]{3,15}$/;
+		let pwChk = /^[a-zA-z]{1}[a-zA-Z0-9!@#$%^&*-_]{3,19}$/;
+		
+		if(!nmChk.test($("#name").val()) ){
+			alert("이름은 한글만 입력 가능");
+		}
+		if(!idChk.test($("#id").val()) ){
+			alert("아이디가 조건에 부합하지 않음\n 다시 입력해주세요");
+		}
+		if(!pwChk.test($("#pw").val()) ){
+			alert("비밀번호가 조건에 부합하지 않음\n 다시 입력해주세요");
+		}
+		let name = $("#name").val();
+		let id = $("#id").val();
+		let pw = $("#pw").val();
+		let email = $("#mailId").val() +"@"+ $("#mailTail").val();
+		let addr = $("#zlp").val() + $("#addr1").val() + $("#addr2").val();
+		console.log(email);
+		
+		if(result == 0){
+			alert("아이디 중복확인을 하셔야 합니다.");
+		} else { 
+			jFrm.submit();
+		}
+	} // joinBtn
+	function pwck(){
+		var pw = $("#pw").val();
+		var pw2 = $("#pw2").val();
+		
+		if(pw == pw2){
+			$("#pwck").html('<span class="mvalign black">* 비밀번호가 일치입니다.</span>');
+		} else {
+			$("#pwck").html('<span class="mvalign orange">* 비밀번호가 일치하지 않습니다.</span>');
+		}
+	} // pwck
+	function mTval(){
+		console.log($("#emailList").val());
+		if($("#emailList").val()=="#"){
+			$("#mailTail").val("");
+			$("#mailTail").attr("disabled",false);
+		} else {
+			$("#mailTail").val($("#emailList").val());
+			$("#mailTail").attr("disabled",true);
+		}
+	}//mTval
+	
+	function zipBtn(){
+		 new daum.Postcode({
+		        oncomplete: function(data) {
+		          $("#zip").val(data.zonecode);
+		          $("#addr1").val(data.address);
+		        }
+		    }).open();
+	}
+	
+	function idChk(){
+		$.ajax({
+			url : "/member/idck",
+			method :"post",
+			data : {"id" : $("#id").val()},
+			success : function(data){
+				alert(data);
+				if(data == 1){
+					result = data;
+				} else {
+					result = data;
+				}
+				
+			},
+			error : function(){
+				alert("실패");
+			}
+		}) // ajax
+	} //idChk
+	
+	
+	</script>
 
+				<form action="/member/join" method="post" name="jFrm">
 					<div class="memberbd">
 						<table summary="이름, 아이디, 비밀번호, 비밀번호 확인, 이메일, 이메일수신여부, 주소, 휴대폰, 유선전화, 생년월일 순으로 회원가입 정보를 등록할수 있습니다." class="memberWrite" border="1" cellspacing="0">
 							<caption>회원가입 입력</caption>
@@ -163,14 +247,14 @@ $(document).ready(function() {
 							<tbody>
 								<tr>
 									<th scope="row"><span>이름 *</span></th>
-									<td>김슬기</td>
+									<td><input type="text" id="name" name="name" required></td>
 								</tr>
 								<tr>
 									<th scope="row"><span>아이디 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="text" class="w134" /></li>
-											<li><a href="#" class="nbtnMini">중복확인</a></li>
+											<li class="r10"><input type="text" id="id" name="id" class="w134" required/></li>
+											<li><a onclick="idChk()" class="nbtnMini">중복확인</a></li>
 											<li class="pt5"><span class="mvalign">첫 글자는 영문으로 4~16자 까지 가능, 영문, 숫자와 특수기호(_)만 사용 가능</span></li>
 										</ul>
 									</td>
@@ -179,8 +263,8 @@ $(document).ready(function() {
 									<th scope="row"><span>비밀번호 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="password" class="w134" /></li>
-											<li><span class="mvalign">※ 영문 / 숫자 혼용으로 4~20자 까지 가능.</span></li>
+											<li class="r10"><input type="password" id="pw" name="pw" class="w134" required/></li>
+											<li><span class="mvalign">※ 첫 글자 영문, 영문/숫자/특수기호(!@#$%^&*-_)를 포함해야함.</span></li>
 										</ul>
 									</td>
 								</tr>
@@ -188,10 +272,8 @@ $(document).ready(function() {
 									<th scope="row"><span>비밀번호 확인 *</span></th>
 									<td>
 										<ul class="pta">
-											<li class="r10"><input type="password" class="w134" /></li>
-											<li>
-												<span class="mvalign black">* 비밀번호가 일치입니다.</span>
-												<span class="mvalign orange">* 비밀번호가 일치하지 않습니다.</span>
+											<li class="r10"><input type="password" id="pw2" name="pw2" class="w134" onkeyup="pwck()" required/></li>
+											<li id="pwck">
 											</li>
 										</ul>
 									</td>
@@ -199,12 +281,12 @@ $(document).ready(function() {
 								<tr>
 									<th scope="row"><span>이메일</span></th>
 									<td>
-										<ul class="pta">
-											<li><input type="text" class="w134" /></li>
+										<ul class="pta" >
+											<li><input type="text" id="mailId" name="mailId" class="w134" required/></li>
 											<li><span class="valign">&nbsp;@&nbsp;</span></li>
-											<li class="r10"><input type="text" class="w134" /></li>
+											<li class="r10"><input type="text" id="mailTail" name="mailTail" class="w134" required/></li>
 											<li>
-												<select id="emailList">
+												<select id="emailList" onchange="mTval()">
 													<option value="#" selected="selected">직접입력</option>
 													<option value="naver.com">naver.com</option>
 													<option value="daum.net">daum.net</option>
@@ -246,10 +328,12 @@ $(document).ready(function() {
 									<td>
 										<ul class="pta">
 											<li>
-												<input type="text" class="w134" />&nbsp;
+												<input type="text" id="zip" name="zip" class="w134" />&nbsp;
 											</li>
-											<li><a href="zip.html" class="addressBtn"><span>우편번호 찾기</span></a></li>
-											<li class="pt5"><input type="text" class="addressType" /></li>
+											<li><a onclick="zipBtn()" class="addressBtn"><span>우편번호 찾기</span></a></li>
+											<li class="pt5"><input type="text" id="addr1" name="addr1" class="addressType" /></li>
+											<li class="pt5"><input type="text" id="addr2" name="addr2" class="addressType" value="상세주소 입력" /></li>
+											
 											<li class="cb">
 												<span class="mvalign">※ 상품 배송 시 받으실 주소입니다. 주소를 정확히 적어 주세요.</span>
 											</li>
@@ -261,7 +345,7 @@ $(document).ready(function() {
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
+												<select id="phone1" name="phone1">
 													<option value="010" selected="selected">010</option>
 													<option value="011">011</option>
 													<option value="016">016</option>
@@ -271,8 +355,8 @@ $(document).ready(function() {
 												</select>
 											</li>
 											<li>&nbsp;<span class="valign">-</span>&nbsp;</li>
-											<li><input type="text" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
-											<li class="r10"><input type="text" class="w74" maxlength="4" /></li>
+											<li><input type="text" id="phone2" name="phone2" class="w74" maxlength="4" /> <span class="valign">-</span>&nbsp;</li>
+											<li class="r10"><input type="text" id="phone3" name="phone3" class="w74" maxlength="4" /></li>
 											<li class="cb pt5"><span class="mvalign">※ SMS 서비스를 받아보시겠습니까?</span></li>
 											<li class="pt5">
 												<ul class="baseQues">
@@ -323,12 +407,12 @@ $(document).ready(function() {
 									<td>
 										<ul class="pta">
 											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
+												<select name="year">
+													<option  selected="selected">선택하세요</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1940; i<=2014; i++){
-															document.write("<option value=''>" + i + "년"+ "</option>");	
+															document.write("<option value='"+i+"'>" + i + "년"+ "</option>");	
 														};
 													//]]>
 													</script>
@@ -336,15 +420,15 @@ $(document).ready(function() {
 											</li>
 											<li>&nbsp;<span class="valign">년</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
+												<select name="month">
+													<option  selected="selected">선택하세요</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=12; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "월"+"</option>");
+																document.write("<option value='"+i+"'>0" + i + "월"+"</option>");
 															}else{
-																document.write("<option value=''>" + i + "월"+ "</option>");
+																document.write("<option value='"+i+"'>" + i + "월"+ "</option>");
 															};
 														};
 													//]]>
@@ -353,15 +437,15 @@ $(document).ready(function() {
 											</li>
 											<li>&nbsp;<span class="valign">월</span>&nbsp;&nbsp;&nbsp;</li>
 											<li>
-												<select>
-													<option value='' selected="selected">선택하세요</option>
+												<select name="day" >
+													<option  selected="selected">선택하세요</option>
 													<script type="text/javascript">
 													//<![CDATA[
 														for(var i=1; i<=31; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "일"+"</option>");
+																document.write("<option value='"+i+"'>0" + i + "일"+"</option>");
 															}else{
-																document.write("<option value=''>" + i + "일"+ "</option>");
+																document.write("<option value='"+i+"'>" + i + "일"+ "</option>");
 															};
 														};
 													//]]>
@@ -383,16 +467,16 @@ $(document).ready(function() {
 									</td>
 								</tr>
 								<tr>
-									<th scope="row"><span>기업회원</span></th>
+									<th scope="row"><span>성별</span></th>
 									<td>
 										<ul class="pta">
 											<li>
 												<ul class="baseQues">
 													<li>
-														<input type="radio" name="business" id="partner" class="radio_t"/><label for="partner">예</label>
+														<input type="radio" name="gender" id="male"  value="male" class="radio_t"/><label for="male">남성</label>
 													</li>
 													<li>
-														<input type="radio" name="business" id="general" class="radio_t" checked="checked"/><label for="general">아니오</label>
+														<input type="radio" name="gender" id="female"  value="female" class="radio_t" checked="checked"/><label for="female">여성</label>
 													</li>
 												</ul>
 											</li>
@@ -419,11 +503,12 @@ $(document).ready(function() {
 						<div class="bCenter">
 							<ul>
 								<li><a href="#" class="nbtnbig">취소하기</a></li>
-								<li><a href="#" class="sbtnMini">가입하기</a></li>
+								<li><a onclick="joinBtn()" class="sbtnMini">가입하기</a></li>
 							</ul>
 						</div>
 					</div>
 					<!-- //Btn Area -->
+				</form>
 
 
 <script type="text/javascript" src="../js/jquery.fancybox-1.3.4.pack.js"></script>

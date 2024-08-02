@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,101 +88,7 @@ $(document).ready(function() {
 <div id="allwrap">
 <div id="wrap">
 
-	<div id="header">
-		
-		<div id="snbBox">
-			<h1><img src="../images/txt/logo.gif" alt="JARDIN SHOP" /></h1>
-			<div id="quickmenu">
-				<div id="mnaviOpen"><img src="../images/btn/btn_mnavi.gif" width="33" height="31" alt="메뉴열기" /></div>
-				<div id="mnaviClose"><img src="../images/btn/btn_mnavi_close.gif" width="44" height="43" alt="메뉴닫기" /></div>
-				<ul>
-					<li><a href="#">EVENT</a></li>
-					<li><a href="#">CUSTOMER</a></li>
-					<li><a href="#">COMMUNITY</a></li>
-				</ul>
-			</div>
-			<div id="snb">
-				<ul>
-					<li><a href="#">LOGIN</a></li>
-					<li><a href="#">JOIN</a></li>
-					<li><a href="#">MY PAGE</a></li>
-					<li><a href="#">CART</a></li>
-				</ul>
-
-				<div id="search">
-					<input type="text" class="searchType" />
-					<input type="image" src="../images/btn/btn_main_search.gif" width="23" height="20" alt="검색하기" />
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- GNB -->
-	<div id="gnb">
-		
-		<div id="top">
-			<ul>
-				<li class="brand t1"><a href="#" id="topNavi1">JARDIN’s BRAND</a>
-					<ul id="topSubm1">
-						<li><a href="#">클래스</a></li>
-						<li><a href="#">홈스타일 카페모리</a></li>
-						<li><a href="#">드립커피백</a></li>
-						<li><a href="#">카페리얼 커피</a></li>
-						<li><a href="#">오리지널커피백</a></li>
-						<li><a href="#">카페리얼 음료</a></li>
-						<li><a href="#">마일드커피백</a></li>
-						<li><a href="#">워터커피</a></li>
-						<li><a href="#">카페포드</a></li>
-						<li><a href="#">모히또파티</a></li>
-						<li><a href="#">테이크아웃 카페모리</a></li>
-						<li><a href="#">포타제</a></li>
-					</ul>
-				</li>
-				<li class="t2"><a href="#" id="topNavi2">원두</a>
-					<ul id="topSubm2">
-						<li><a href="#">클래스</a></li>
-						<li><a href="#">로스터리샵</a></li>
-						<li><a href="#">커피휘엘</a></li>
-						<li><a href="#">산지별 생두</a></li>
-					</ul>
-				</li>
-				<li class="t1"><a href="#" id="topNavi3">원두커피백</a>
-					<ul id="topSubm3">
-						<li><a href="#">드립커피 로스트</a></li>
-						<li><a href="#">오리지널커피백</a></li>
-						<li><a href="#">마일드커피백</a></li>
-					</ul>
-				</li>
-				<li class="t2"><a href="#" id="topNavi4">인스턴트</a>
-					<ul id="topSubm4">
-						<li><a href="#">까페모리</a></li>
-						<li><a href="#">홈스타일카페모리</a></li>
-						<li><a href="#">포타제</a></li>
-					</ul>
-				</li>
-				<li class="t1"><a href="#" id="topNavi5">음료</a>
-					<ul id="topSubm5">
-						<li><a href="#">까페리얼</a></li>
-						<li><a href="#">워터커피</a></li>
-						<li><a href="#">모히또</a></li>
-					</ul>
-				</li>
-				<li class="t2"><a href="#" id="topNavi6">커피용품</a>
-					<ul id="topSubm6">
-						<li><a href="#">종이컵</a></li>
-						<li><a href="#">커피필터</a></li>
-						<li><a href="#">머신 등</a></li>
-					</ul>
-				</li>
-				<li class="t1"><a href="#" id="topNavi7">선물세트</a></li>
-				<li class="t2"><a href="#" id="topNavi8">대량구매</a></li>
-			</ul>
-		</div>
-
-		<script type="text/javascript">initTopMenu();</script>
-	</div>
-	<!-- //GNB -->
+	<%@ include file="../top.jsp" %>
 
 	<!-- container -->
 	<div id="container">
@@ -198,7 +106,7 @@ $(document).ready(function() {
 				<div id="title2">CUSTOMER<span>고객센터</span></div>
 				<ul>	
 					<li><a href="#" id="leftNavi1">NOTICE</a></li>
-					<li><a href="#" id="leftNavi2">1:1문의</a></li>
+					<li><a href="/board/write" id="leftNavi2">1:1문의</a></li>
 					<li><a href="#" id="leftNavi3">FAQ</span></a></li>
 					<li class="last"><a href="#" id="leftNavi4">이용안내</a></li>
 				</ul>			
@@ -214,25 +122,22 @@ $(document).ready(function() {
 						<div class="viewHead">
 							<div class="subject">
 								<ul>
-									<li>쟈뎅 전문 쇼핑몰 쟈뎅샵이 리뉴얼 오픈합니다.</li>
+									<li>${board.btitle}</li>
 								</ul>
 							</div>
 							<div class="day">
-								<p class="txt">작성일<span>14.01.28</span></p>
+								<p class="txt">작성일<span>${board.bdate}</span></p>
 							</div>
 						</div>
 
 						<div class="viewContents">
-							안녕하세요. 쟈뎅샵입니다.<br/>
-							늘 저희 쟈뎅을 사랑해주시는 많은 고객님들께 감사 인사드립니다.<br/>
-							변함없는 고객님들의 사랑에 보답하고자, 쟈뎅이 온라인 쇼핑몰을 새롭게 리뉴얼 오픈하게 되었습니다.<br/>
-							기존에 tea24로 이용하시던 쟈뎅 제품 전문 쇼핑몰이 쟈뎅샵(jardinshop)이라는 새로운 공간으로<br/>
-							오픈하게 되었습니다.<br/>
-							더욱 새로운 모습과 늘 발전하는 모습으로 찾아뵙도록 하겠습니다.<br/><br/>
-
-							감사합니다.
+							${board.bcontent}
 						</div>
+						
 					</div>
+						<div>
+							<img src="../images/${board.bfile}">
+						</div>
 
 
 					<!-- 이전다음글 -->
@@ -246,12 +151,22 @@ $(document).ready(function() {
 							<tbody>
 								<tr>
 									<th class="pre">PREV</th>
-									<td><a href="#">상품 재입고는 언제 되나요?</a></td>
+									<c:if test="${prev.bno != null}">
+										<td><a href="/board/noticeView?bno=${prev.bno}&page=${page}&category=${category}&sWord=${sWord}">${prev.btitle}</a></td>
+									</c:if>
+									<c:if test="${prev.bno == null}">
+										<td>게시글이 없습니다.</td>
+									</c:if>
 								</tr>
 
 								<tr>
 									<th class="next">NEXT</th>
-									<td>다음 글이 없습니다.</td>
+									<c:if test="${next.bno != null}">
+										<td><a href="/board/noticeView?bno=${next.bno}&page=${page}&category=${category}&sWord=${sWord}">${next.btitle}</a></td>
+									</c:if>
+									<c:if test="${next.bno == null}">
+										<td>게시글이 없습니다.</td>
+									</c:if>
 								</tr>
 							</tbody>
 						</table>
@@ -263,7 +178,12 @@ $(document).ready(function() {
 					<div class="btnArea btline">
 						<div class="bRight">
 							<ul>
-								<li><a href="#" class="sbtnMini mw">목록</a></li>
+							<c:if test="${board.id==sessionId}">
+								<li><a href="/board/delete?bno=${board.bno}" class="sbtnMini mw">삭제</a></li>
+								<li><a href="/board/modi?bno=${board.bno}&page=${page}&category=${category}&sWord=${sWord}" class="sbtnMini mw">수정</a></li>
+							</c:if>
+								<li><a href="/board/reply?bno=${board.bno}&page=${page}&category=${category}&sWord=${sWord}" class="sbtnMini mw">답글</a></li>
+								<li><a href="/board/notice?page=${page}&category=${category}&sWord=${sWord}" class="sbtnMini mw">목록</a></li>
 							</ul>
 						</div>
 					</div>
@@ -281,36 +201,7 @@ $(document).ready(function() {
 
 
 
-	<div id="footerWrap">
-		<div id="footer">
-			<div id="fnb">
-				<ul>
-					<li class="left"><a href="#">개인정보취급방침</a></li>
-					<li><a href="#">이용약관</a></li>
-					<li class="left"><a href="#">이메일무단수집거부</a></li>
-					<li><a href="#">고객센터</a></li>
-					<li class="left brand"><a href="#">쟈뎅 브랜드 사이트</a></li>
-				</ul>
-			</div>
-			
-			<div id="finfo">
-				<div id="flogo"><img src="../images/txt/flogo.gif" alt="JARDIN THE COFFEE CREATOR, SINCE 1984" /></div>
-				<address>
-					<ul>
-						<li>㈜쟈뎅</li>
-						<li>대표자 윤영노</li>
-						<li class="tnone">주소 서울시 강남구 논현동 4-21번지 영 빌딩</li>
-						<li class="webnone">소비자상담실 02)546-3881</li>
-						<li>사업자등록번호 211-81-24727</li>
-						<li class="tnone">통신판매신고 제 강남 – 1160호</li>
-						<li class="copy">COPYRIGHT © 2014 JARDIN <span>ALL RIGHTS RESERVED.</span></li>
-					</ul>
-				</address>
-
-				<div id="inicis"><img src="../images/ico/ico_inicis.png" alt="이니시스 결제시스템" /></div>
-			</div>
-		</div>
-	</div>
+	<%@ include file="../foot.jsp" %>
 
 
 

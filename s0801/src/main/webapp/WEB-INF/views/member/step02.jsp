@@ -428,7 +428,7 @@ $(document).ready(function() {
 
 							<ul>
 								<li class="chk">
-									<input type="checkbox" name="agree" id="agree"  /><label for="agree1">이용약관에 동의합니다.</label>
+									<input type="checkbox" name="agree" id="agree1"  /><label for="agree1">이용약관에 동의합니다.</label>
 								</li>
 								<li class="btn">
 									<a href="#" class="nbtnMini">전체보기</a>
@@ -480,7 +480,7 @@ $(document).ready(function() {
 
 							<ul>
 								<li class="chk">
-									<input type="checkbox" name="agree" id="agree" /><label for="agree2">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
+									<input type="checkbox" name="agree" id="agree2" /><label for="agree2">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
 								</li>
 								<li class="btn">
 									<a href="#" class="nbtnMini">전체보기</a>
@@ -532,22 +532,51 @@ $(document).ready(function() {
 
 							<ul class="fn">
 								<li class="chk">
-									<input type="checkbox" name="agree" id="agree" /><label for="agree3">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
+									<input type="checkbox" name="agree" id="agree3" /><label for="agree3">개인정보 보호를 위한 이용자 <span>동의사항에 동의합니다.</span></label>
 								</li>
 								<li class="btn">
 									<a href="#" class="nbtnMini">전체보기</a>
 								</li>
 							</ul>
 						</div>
-									<input type="checkbox" name="agreeAll" id="agreeAll">
+									<input type="checkbox" name="agreeAll" id="agreeAll"><label for="agreeAll">전체 동의</label>
 					</div>
 
 <script>
 $(function(){
 	// 전체선택 눌렀을때 전체 선택 되게
+	$("#agreeAll").click(function(){
+		if($("#agreeAll").is(":checked")){
+			$("input[name=agree]").prop("checked",true);
+		} else {
+			$("input[name=agree]").prop("checked",false);
+		}
+	})//("#agreeAll").click
 	
-	// 전체선택 해제했을때 전체 해재 되게
+	$("input[name=agree]").click(function(){
+		var total = $("input[name=agree]").length;
+		var checked = $("input[name=agree]:checked").length;
+		
+		if(checked < total){
+			$("#agreeAll").prop("checked",false);
+		} else {
+			$("#agreeAll").prop("checked",true);
+		}
+	})// ("input[name=agree]").click
+	
 })// jquery
+
+function nextBtn(){
+	var total = $("input[name=agree]").length;
+	var checked = $("input[name=agree]:checked").length;
+	
+	if(checked < total){
+		alert("전체 동의하셔야 가능합니다.");
+	} else {
+		location.href="/member/step03";
+	}
+}
+
 
 </script>
 
@@ -557,7 +586,7 @@ $(function(){
 						<div class="bCenter">
 							<ul>
 								<li><a href="#" class="nbtnbig">취소하기</a></li>
-								<li><a href="/member/step03" class="sbtnMini">가입하기</a></li>
+								<li><a onclick="nextBtn()" class="sbtnMini">가입하기</a></li>
 							</ul>
 						</div>
 					</div>

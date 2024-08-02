@@ -8,5 +8,13 @@ public interface MService {
 
 	String selectId(String name, String email);
 
+	String idck(String id);
+
+	void insertJoin(Member mem);
+
+	Member selectOne(String id);
+
+	void modiMem(Member mem);
+
 
 }

@@ -432,9 +432,9 @@ $(document).ready(function() {
 													//<![CDATA[
 														for(var i=1; i<=12; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "월"+"</option>");
+																document.write("<option value='"+i+"'>0" + i + "월"+"</option>");
 															}else{
-																document.write("<option value=''>" + i + "월"+ "</option>");
+																document.write("<option value='"+i+"'>" + i + "월"+ "</option>");
 															};
 														};
 													//]]>
@@ -449,9 +449,9 @@ $(document).ready(function() {
 													//<![CDATA[
 														for(var i=1; i<=31; i++){
 															if(i<10){
-																document.write("<option value=''>0" + i + "일"+"</option>");
+																document.write("<option value='"+i+"'>0" + i + "일"+"</option>");
 															}else{
-																document.write("<option value=''>" + i + "일"+ "</option>");
+																document.write("<option value='"+i+"'>" + i + "일"+ "</option>");
 															};
 														};
 													//]]>
